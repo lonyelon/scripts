@@ -3,7 +3,7 @@
 # This script starts the ethereum miner and caps the GPU power to prevent
 # overusage and increase benefits.
 #
-# Made by LONYELON (lonyelon@lony.xyz) for personal use, 2021
+# Made by SERGIO MIGUÉNS IGLESIAS (lonyelon@lony.xyz) for personal use, 2021
 
 #                                                                        PARAMS
 ###############################################################################

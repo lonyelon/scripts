@@ -2,10 +2,10 @@
 
 # This script allows for easy mounting of drives.
 #
-# Made by LONYELON (lonyelon@lony.xyz) for personal use, 2021.
+# Made by SERGIO MIGUÉNS IGLESIAS (lonyelon@lony.xyz) for personal use, 2021
 
 # List devices with cool colors
-lsblk | sed -e "s/\ \ */\ /g" | cut -d" " -f1,4,7 | grep "^[^a-z]" | sed -e "s/\ /\t/g;s/^[^a-z][^a-z]//g" \
+lsblk | sed -e "s/\ \ */\ /g" | cut -d" " -f1,4,7 | sed -e "s/\ /\t/g" \
 	| awk 'BEGIN{OFS=""}m=/[0-9][PGMKB][\t ]$/{print "\033[1;32m",$0,"\033[0;0m"}!m{print $0}'
 
 # Select device

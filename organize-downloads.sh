@@ -26,21 +26,23 @@ while getopts h option; do
 	esac
 done
 
+# Check if the directory exists.
 if [ ! -d "$DWDIR" ]; then
 	>&2 echo "Directory \"$DWDIR\ does not exist."
 	exit
 fi
 
+# Enter the downloads dir.
 cd "$DWDIR"
 
+# Check if every subdir exists, if not, create it.
 for d in $DIRS; do
 	[[ ! -d "$d" ]] && mkdir "$DWDIR/$d"
 done
 
-for f in * ; do
-	if [[ -d "$f" ]]; then 
-		[[ ! "${DIRS[@]}" =~ "$f" ]] && rm -rf "$f"
-	else
+# Move files to their corresponding directories.
+for f in *; do
+	if [[ -f "$f" ]]; then 
 		[[ "$f" =~ \.(img|iso) ]] && mv "$f" iso
 		[[ "$f" =~ \.(png|jpg|jpeg|gif)$ ]] && mv "$f" img
 		[[ "$f" =~ \.(webm|mp4|mov|mkv) ]] && mv "$f" vid

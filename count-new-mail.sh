@@ -2,10 +2,7 @@
 
 # This script counts the ammount of unread mails the user has.
 #
-# Made by LONYELON (lonyelon@lony.xyz) for personal use, 2021.
-
-#                                                                           CODE
-################################################################################
+# Made by SERGIO MIGUÉNS IGLESIAS (lonyelon@lony.xyz) for personal use, 2021.
 
 c=0
 for f in $HOME/.local/share/mail/*; do
