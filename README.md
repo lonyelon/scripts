@@ -14,5 +14,5 @@ Most script's only require a POSIX-compatible shell and the GNU basic utilities 
 
 ## Copyright
 
-Made by lonyelon (lonyelon@lony.xyz) for personal use, 2021.
-Check LICENSE for more.
+Made by SERGIO MIGUÉNS IGLESIAS (lonyelon@lony.xyz) for personal use, 2021.
+Check  [LICENSE](LICENSE) for more information.
