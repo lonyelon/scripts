@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+
+"""
+Stable Diffusion interface for the shell.
+
+Usage: stable-diffusion -p PROMPT -o FILE
+
+REQUIRES Stable Diffusion to be correctly configured locally before use.
+
+Made by SERGIO MIGUÉNS IGLESIAS <sergio@lony.xyz> for personal use, 2022.
+"""
+
+import torch
+import sys, getopt
+from torch import autocast
+from diffusers import StableDiffusionPipeline
+
+def showHelp():
+    print("Usage: ", sys.argv[0], "-p PROMPT [-o OUTPUT_FILE]")
+
+prompt = ""
+file="image.png"
+
+# Get command line arguments.
+myopts, args = getopt.getopt(sys.argv[1:],"p:o:")
+for o, a in myopts:
+    if o == '-p':
+        prompt=a
+    elif o == '-o':
+        file=a
+    else:
+        showHelp()
+if prompt == "":
+    showHelp()
+
+model_id = "CompVis/stable-diffusion-v1-4"
+device = "cpu"
+
+# Create pipe.
+pipe = StableDiffusionPipeline.from_pretrained(model_id, use_auth_token=True)
+pipe = pipe.to(device)
+
+# Disable NSFW filter.
+pipe.safety_checker = lambda images, **kwargs: (images, False)
+
+# Generate and save image.
+image = pipe(prompt, guidance_scale=7.5)["sample"][0]
+image.save(file)
