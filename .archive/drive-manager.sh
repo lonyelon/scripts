@@ -2,7 +2,7 @@
 
 # This script allows for easy mounting of drives.
 #
-# Made by SERGIO MIGUÉNS IGLESIAS (lonyelon@lony.xyz) for personal use, 2021
+# Made by LONYELON (lonyelon@lony.xyz) for personal use, 2021
 
 # List devices with cool colors
 lsblk | sed -e "s/\ \ */\ /g" | cut -d" " -f1,4,7 | sed -e "s/\ /\t/g" \
