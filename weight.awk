@@ -41,10 +41,10 @@ function printData() {
 	minWeightDiff = minWeekWeight - lastWeekMinWeight;
 
 	if (ARGV[1] == "-m")
-		printf "%d-%d\t%.2f\t%.2f\t%d\n", lastYear, lastWeek, minWeekWeight, \
+		printf "%d-W%d\t%.2f\t%.2f\t%d\n", lastYear, lastWeek, minWeekWeight, \
 			minWeightDiff, minWeightDiff * 7000;
 	else
-		printf "%d-%d\t%.2f\t%.2f\t%d\n", lastYear, lastWeek, weightAvg, \
+		printf "%d-W%0.2d\t%.2f\t%.2f\t%d\n", lastYear, lastWeek, weightAvg, \
 			weightDiff, weightDiff * 7000;
 }
 
