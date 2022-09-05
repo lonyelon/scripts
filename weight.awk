@@ -48,11 +48,11 @@ function printData() {
 			weightDiff, weightDiff * 7000;
 }
 
-/^20[0-9][0-9]-/ {
+/^20[0-9\+\-T:]*,[0-9]/ {
 	str = "date -d " $1 " +%u";
 	str | getline weekDayNu;
 
-	if (weekDayNu != 6 && weekDaytNu != 7) {
+	if (weekDayNu != 6 && weekDayNu != 7) {
 		str = "date -d " $1 " +%Y";
 		str | getline yearNu;
 		str = "date -d " $1 " -I";
