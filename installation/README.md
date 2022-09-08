@@ -1,4 +1,4 @@
-# Lonyelon's package installation scripts
+# Lonyelon's Arch installation scripts
 
-The scripts here help you install various utilities.
-Arch Linux is required.
+This directory is intended to contain the day2 installation script for
+ArchLinux.
