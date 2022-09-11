@@ -17,7 +17,7 @@ packages='
     keepassxc sxiv
     wget curl
     hledger
-    taskwarrior
+    task
 '
 
 pacman -S $packages
