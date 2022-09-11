@@ -8,6 +8,8 @@
 user=$1
 homedir=`getent passwd $user | cut -d: -f6`
 
+pacman -Syyu
+
 packages='
     vim
     unison rsync
