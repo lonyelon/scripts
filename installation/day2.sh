@@ -36,6 +36,7 @@ pacman -S --noconfirm xorg-server $option
 #                                                             SUCKLESS UTILITIES
 ################################################################################
 
+pacman -S --noconfirm libxft libxinerama
 git clone https://github.com/lonyelon/dwm.git /tmp/dwm
 git clone https://github.com/lonyelon/dmenu.git /tmp/dmenu
 git clone https://github.com/lonyelon/st.git /tmp/st
