@@ -31,7 +31,7 @@ drivers='
 option=$(echo "$drivers" | grep '[a-z]' | tr -d ' ' \
     | fzf --header='Select a GPU driver for the system:')
 [ -z "$option" ] && option="xf86-video-fbdev"
-pacman -S --noconfirm xorg-server $option
+pacman -S --noconfirm xorg-server xorg-xinit $option
 
 #                                                             SUCKLESS UTILITIES
 ################################################################################
@@ -80,7 +80,7 @@ su $user -c 'git clone https://github.com/lonyelon/scripts.git ~/sh'
 ################################################################################
 
 pacman -S --noconfirm openssh
-su $user -c ssh-keygen
+su $user -c 'ssh-keygen -f ~/.ssh/id_rsa -N ""'
 sed -i 's/^X11Forwarding yes/X11Forwarding no/'
 sed -i 's/^UsePAM yes/UsePam no/'
 
