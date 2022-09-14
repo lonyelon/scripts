@@ -14,7 +14,7 @@ homedir=`getent passwd $user | cut -d: -f6`
 #                                                     INSTALLATION PREREQUISITES
 ################################################################################
 
-pacman -Syyu fzf git rsync
+pacman -Syyu --noconfirm fzf git rsync
 
 #                                                                     XORG SETUP
 ################################################################################
@@ -31,7 +31,7 @@ drivers='
 option=$(echo "$drivers" | grep '[a-z]' | tr -d ' ' \
     | fzf --header='Select a GPU driver for the system:')
 [ -z "$option" ] && option="xf86-video-fbdev"
-pacman -S xorg-server $option
+pacman -S --noconfirm xorg-server $option
 
 #                                                             SUCKLESS UTILITIES
 ################################################################################
@@ -50,17 +50,17 @@ make install
 #                                                                          EMACS
 ################################################################################
 
-pacman -S emacs
-#pacman -S ripgrep
+pacman -S --noconfirm emacs
+#pacman -S --noconfirm ripgrep
 git clone --depth 1 https://github.com/doomemacs/doomemacs $homedir/.emacs.d
 $homedir/.emacs.d/bin/doom install
 
 #                                                                       OPENDOAS
 ################################################################################
 
-pacman -S opendoas
+pacman -S --noconfirm opendoas
 echo 'permit keepenv persist :wheel' > /etc/doas.conf
-pacman -Rns sudo || exit
+pacman -Rns --noconfirm sudo
 ln -s /bin/doas /bin/sudo
 
 #                                                                            YAY
@@ -96,4 +96,4 @@ packages='
     task
 '
 
-pacman -S $packages
+pacman -S --noconfirm $packages
