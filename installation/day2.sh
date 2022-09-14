@@ -79,6 +79,7 @@ su $user -c 'git clone https://github.com/lonyelon/scripts.git ~/sh'
 #                                                                      SSH SETUP
 ################################################################################
 
+pacman -S --noconfirm openssh
 su $user -c ssh-keygen
 sed -i 's/^X11Forwarding yes/X11Forwarding no/'
 sed -i 's/^UsePAM yes/UsePam no/'
