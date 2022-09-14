@@ -53,8 +53,8 @@ make install
 
 pacman -S --noconfirm emacs
 #pacman -S --noconfirm ripgrep
-git clone --depth 1 https://github.com/doomemacs/doomemacs $homedir/.emacs.d
-$homedir/.emacs.d/bin/doom install
+su $user -c 'git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d'
+su $user -c '~/.emacs.d/bin/doom install'
 
 #                                                                       OPENDOAS
 ################################################################################
@@ -74,7 +74,7 @@ makepkg -si
 #                                                                 CUSTOM SCRIPTS
 ################################################################################
 
-git clone https://github.com/lonyelon/scripts.git $homedir/sh
+su $user -c 'git clone https://github.com/lonyelon/scripts.git ~/sh'
 
 #                                                                      SSH SETUP
 ################################################################################
