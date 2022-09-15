@@ -1,0 +1,77 @@
+#!/bin/sh
+
+# This script sends an email to the SENDTO email with the tasks and budgets for
+# the day.
+#
+# Made by SERGIO MIGUÉNS IGLESIAS <sergio@lony.xyz> for personal use, 2022.
+
+#                                                                    CONFIG VARS
+################################################################################
+
+SENDTO=sergio@lony.xyz
+TITLE="Daily update for $(date +%A), $(date +%Y-%m-%d)"
+FILE=/tmp/taskmail.txt
+SUMFILE=~/.cache/last-personal-email.sum
+LEDGER_FILE=~/doc/cuentas/2022c.ledger
+
+#                                                                      FUNCTIONS
+################################################################################
+
+# Show the help information.
+show_help() {
+    echo "USAGE: $0 EMAIL"
+}
+
+# Gets the names of the tasks filtered by the parameter.
+get_tasks () {
+    task info $1 | grep '^Description' \
+        | sed 's/^Description\ */<li>/;s+$+</li>+' 2> /dev/null
+}
+
+#                                                               MAIL COMPOSITION
+################################################################################
+
+# Get the task list.
+today_task_list=`get_tasks '+READY and \( +DUETODAY or +OVERDUE \)'`
+tomorrow_task_list=`get_tasks '+READY and +TOMORROW'`
+
+# Get the budgets for this month. Remove "<"s and ">"s since they conflict with
+# HTML.
+budgets=`hledger -f $LEDGER_FILE bal --tree -b $(date +%Y-%m) --budget cur:eur \
+    | sed 's/<//g;s/>/  /g'`
+
+# Write email headers.
+echo "Subject: $TITLE" > $FILE
+echo 'Content-Type: text/html; charset="utf-8"' >> $FILE
+
+# Add tasks to email
+echo '<h1>Tasks</h1>' >> $FILE
+if [ ! -z "$today_task_list" ]; then
+    echo '<h2>Your tasks for today are:</h2><ul>' >> $FILE
+    echo "$today_task_list" >> $FILE
+    echo '</ul></p>' >> $FILE
+fi
+
+# If there are tasks for tomorrow, sand them too.
+if [ ! -z "$tomorrow_task_list" ]; then
+    echo '<p><h2>Your tasks for tomorrow are:</h2><ul>' >> $FILE
+    echo "$tomorrow_task_list" >> $FILE
+    echo '</ul></p>' >> $FILE
+fi
+
+# If there are no tasks, show a placeholder.
+if [ -z "$tomorrow_task_list$today_task_list" ]; then
+    echo '<p>It seems like there are <b>no TODO tasks</b>, ' >> $FILE
+    echo 'Check if that is true, and if so, congrats!</p>' >> $FILE
+fi
+
+# Add budgets to email.
+echo '<h1>Budgets</h1>' >> $FILE
+echo "<p><pre>$budgets</pre></p>" >> $FILE
+
+# If the mail is not a repeat of the last one, send it.
+sum=`sha256sum $FILE | cut -d' ' -f1`
+if [ ! -f $SUMFILE ] || [ "$sum" != "$(cat $SUMFILE | cut -d' ' -f1)" ]; then
+    cat $FILE | msmtp $SENDTO
+    echo $sum > $SUMFILE
+fi
