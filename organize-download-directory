@@ -2,42 +2,44 @@
 
 # This is a script that organizes your downloads folder.
 #
-# Made by LONYELON (lonyelon@lony.xyz) for private use, 2021.
+# Made by SERGIO MIGUÉNS IGLESIAS (sergio@lony.xyz) for private use, 2021.
 
 #                                                                         PARAMS
 ################################################################################
 
 DIRS=("iso img vid aud pdf zip")
-DWDIR="$HOME/dw"
 
 #                                                                           CODE
 ################################################################################
 
 function show_help {
-	echo -e "USAGE: $0 [OPTIONS] DOWNLOADS_FOLDER\n"
+	echo -e "USAGE: $0 (-h|-f DOWNLOADS_FOLDER)\n"
 	echo -e "OPTIONS:"
 	echo -e "\t-h\tShow this help."
 }
 
-while getopts h option; do
-	case "${option}"
+while getopts hd: option; do
+	case "$option"
 	in
 		h) show_help;;
+		d) dwdir=$OPTARG;;
 	esac
 done
 
+[ -z "$dwdir" ] && show_help && exit
+
 # Check if the directory exists.
-if [ ! -d "$DWDIR" ]; then
+if [ ! -d "$dwdir" ]; then
 	>&2 echo "Directory \"$DWDIR\ does not exist."
 	exit
 fi
 
 # Enter the downloads dir.
-cd "$DWDIR"
+cd "$dwdir"
 
 # Check if every subdir exists, if not, create it.
 for d in $DIRS; do
-	[[ ! -d "$d" ]] && mkdir "$DWDIR/$d"
+	[[ ! -d "$d" ]] && mkdir "$dwdir/$d"
 done
 
 # Move files to their corresponding directories.
