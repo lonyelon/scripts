@@ -4,7 +4,8 @@
 # recreate my setup, data not included.
 #
 # USAGE:
-# curl https://raw.githubusercontent.com/lonyelon/scripts/main/installation/day2.sh | sh /dev/stdin USERNAME
+# curl raw.githubusercontent.com/lonyelon/scripts/main/installation/day2.sh \
+#     > day2 && chmod +x day2 && ./day2 USER
 #
 # Made by SERGIO MIGUÉNS IGLESIAS <sergio@lony.xyz> for personal use, 2022.
 
