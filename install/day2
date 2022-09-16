@@ -60,7 +60,9 @@ su $user -c '~/.emacs.d/bin/doom install'
 ################################################################################
 
 pacman -S --noconfirm opendoas
-echo 'permit keepenv persist :wheel' > /etc/doas.conf
+# Set with "nopass" for ease of installation, this option is removed at the end
+# for security reasons.
+echo 'permit keepenv persist nopass :wheel' > /etc/doas.conf
 pacman -Rns --noconfirm sudo
 ln -s /bin/doas /bin/sudo
 
@@ -68,8 +70,9 @@ ln -s /bin/doas /bin/sudo
 ################################################################################
 
 git clone https://aur.archlinux.org/yay-git.git /opt/yay-git
+chown -R $user /opt/yay-git
 cd /opt/yay-git
-makepkg -si
+su $user -c 'makepkg -si'
 
 #                                                                 CUSTOM SCRIPTS
 ################################################################################
@@ -106,3 +109,8 @@ pacman -S --noconfirm $packages
 # Pacman pacman
 [ -z "$(grep 'ILoveCandy' /etc/pacman.conf)" ] \
     && sed -i 's/^# Misc options/# Misc options\nILoveCandy/' /etc/pacman.conf
+
+#                                                                     LAST FIXES
+################################################################################
+
+echo 'permit keepenv persist :wheel' > /etc/doas.conf
