@@ -99,3 +99,10 @@ packages='
 '
 
 pacman -S --noconfirm $packages
+
+#                                                            MISC CUSTOMIZATIONS
+################################################################################
+
+# Pacman pacman
+[ -z "$(grep 'ILoveCandy' /etc/pacman.conf)" ] \
+    && sed -i 's/^# Misc options/# Misc options\nILoveCandy/' /etc/pacman.conf
