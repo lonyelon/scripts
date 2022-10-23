@@ -55,7 +55,7 @@ make install
 pacman -S --noconfirm emacs
 #pacman -S --noconfirm ripgrep
 su $user -c 'git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d'
-su $user -c '~/.emacs.d/bin/doom install'
+su $user -c '~/.emacs.d/bin/doom -y install'
 
 #                                                                       OPENDOAS
 ################################################################################
