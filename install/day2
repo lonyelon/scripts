@@ -9,8 +9,18 @@
 #
 # Made by SERGIO MIGUÉNS IGLESIAS <sergio@lony.xyz> for personal use, 2022.
 
+[ -z "$1" ] && echo "Day2 script to set up an ArchLinux custom system." \
+            && echo "" \
+            && echo "USAGE: $0 USER_NAME" \
+	    && exit
+
 user=$1
 homedir=`getent passwd $user | cut -d: -f6`
+
+#                                                                    CREATE USER
+################################################################################
+
+[ -z `grep $user /etc/shadow` ] && useradd -m -G wheel $user
 
 #                                                     INSTALLATION PREREQUISITES
 ################################################################################
@@ -125,7 +135,7 @@ sed -i 's/^#\(es_ES\.UTF\-8\)/\1/' /etc/locale.gen
 locale-gen
 
 mkdir -p /etc/systemd/system/getty@tty1.service.d/autologin.conf
-cat<<EOF>/etc/systemd/system/getty@tty1.service.d/autologin.conf
+cat>/etc/systemd/system/getty@tty1.service.d/autologin.conf<<EOF
 [Service]
 ExecStart=
 ExecStart=-/usr/bin/agetty --skip-login --nonewline --noissue --autologin $user --noclear %I \$TERM
