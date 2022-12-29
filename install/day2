@@ -99,7 +99,8 @@ packages='
     keepassxc sxiv
     wget
     hledger
-    task
+    xbacklight
+    feh
 '
 
 pacman -S --noconfirm $packages
