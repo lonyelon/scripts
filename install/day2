@@ -102,15 +102,19 @@ sed -i 's/^UsePAM yes/UsePam no/'
 ################################################################################
 
 packages='
+    nss
+    gnu-free-fonts ttf-liberation ttf-joypixels
     vim
     unison
     bc
     man-db man-pages
-    keepassxc sxiv
-    wget
+    keepassxc
+    wget jq yq sysstat
     hledger
-    xbacklight
-    feh
+    xbacklight xorg-xsetroot
+    feh sxiv mpv
+    neomutt
+    zsh zsh-syntax-highlighting zsh-autosuggestions
 '
 
 pacman -S --noconfirm $packages
@@ -144,5 +148,4 @@ EOF
 #                                                                  LAST PROGRAMS
 ################################################################################
 
-pacman -S --noconfirm nss ttf-joypixels
 yay -S logseq-desktop-bin
