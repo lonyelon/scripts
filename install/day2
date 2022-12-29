@@ -124,6 +124,13 @@ sed -i 's/^\([^#]\)/#\1/' /etc/locale.gen
 sed -i 's/^#\(es_ES\.UTF\-8\)/\1/' /etc/locale.gen
 locale-gen
 
+mkdir -p /etc/systemd/system/getty@tty1.service.d/autologin.conf
+cat<<EOF>/etc/systemd/system/getty@tty1.service.d/autologin.conf
+[Service]
+ExecStart=
+ExecStart=-/usr/bin/agetty --skip-login --nonewline --noissue --autologin $user --noclear %I \$TERM
+EOF
+
 #                                                                  LAST PROGRAMS
 ################################################################################
 
