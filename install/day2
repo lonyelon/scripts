@@ -115,3 +115,16 @@ pacman -S --noconfirm $packages
 ################################################################################
 
 echo 'permit keepenv persist :wheel' > /etc/doas.conf
+
+# TODO Parametrize this.
+echo 'LANG=es_ES.UTF-8' > /etc/locale.conf
+echo 'LANG=es_ES.UTF-8' > /etc/locale.gen
+sed -i 's/^\([^#]\)/#\1/' /etc/locale.gen
+sed -i 's/^#\(es_ES\.UTF\-8\)/\1/' /etc/locale.gen
+locale-gen
+
+#                                                                  LAST PROGRAMS
+################################################################################
+
+pacman -S --noconfirm nss ttf-joypixels
+yay -S logseq-desktop-bin
